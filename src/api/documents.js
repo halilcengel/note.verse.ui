@@ -2,11 +2,14 @@ import api from './axios'
 
 export const documentsApi = {
   // Upload document for a course
-  uploadDocument: async (file, courseOfferingId) => {
+  uploadDocument: async (file, title, uploadedBy, courseId) => {
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('fileName', file.name)
-    formData.append('courseOfferingId', courseOfferingId)
+    formData.append('title', title)
+    formData.append('uploadedBy', uploadedBy)
+    if (courseId) {
+      formData.append('courseId', courseId)
+    }
 
     const response = await api.post('/documents', formData, {
       headers: {
@@ -16,15 +19,43 @@ export const documentsApi = {
     return response.data
   },
 
-  // Get documents for a department
-  getDepartmentDocuments: async (departmentId) => {
-    const response = await api.get(`/departments/${departmentId}/documents`)
+  // Get documents for a course
+  getCourseDocuments: async (courseId, page = 1, limit = 100) => {
+    const response = await api.get('/documents', {
+      params: {
+        courseId,
+        page,
+        limit,
+        sortBy: 'createdAt',
+        sortOrder: 'desc',
+      },
+    })
+    return response.data
+  },
+
+  // Get document metadata by ID
+  getDocumentById: async (documentId) => {
+    const response = await api.get(`/documents/${documentId}`)
     return response.data
   },
 
   // Download document
   downloadDocument: async (documentId) => {
-    const response = await api.get(`/documents/${documentId}`)
+    const response = await api.get(`/documents/${documentId}/download`, {
+      responseType: 'blob',
+    })
+    return response.data
+  },
+
+  // Update document metadata
+  updateDocument: async (documentId, data) => {
+    const response = await api.put(`/documents/${documentId}`, data)
+    return response.data
+  },
+
+  // Delete document
+  deleteDocument: async (documentId) => {
+    const response = await api.delete(`/documents/${documentId}`)
     return response.data
   },
 }
