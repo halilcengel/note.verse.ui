@@ -68,7 +68,12 @@ export const useChatSSE = () => {
 
             try {
               const parsed = JSON.parse(data)
-              if (onEvent) onEvent(parsed)
+              // Attach timestamp to event for UX tracking
+              const eventWithTimestamp = {
+                ...parsed,
+                timestamp: new Date().toISOString(),
+              }
+              if (onEvent) onEvent(eventWithTimestamp)
             } catch (err) {
               console.error('Failed to parse SSE data:', err, data)
             }

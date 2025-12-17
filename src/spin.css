@@ -1,0 +1,11 @@
+.spin {
+  animation: rotate 1s ease-in-out infinite alternate;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(-60deg);
+  } from {
+    transform: rotate(60deg);
+  }
+}
