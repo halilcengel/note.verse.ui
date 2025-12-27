@@ -177,7 +177,7 @@ export default function CourseDetail() {
           borderRadius: 4,
           overflow: "hidden",
           mb: 4,
-          background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
+          background: "linear-gradient(135deg, #00A4B4 0%, #008A99 100%)",
           p: 4,
           color: "white",
         }}

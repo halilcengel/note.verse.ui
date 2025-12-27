@@ -65,7 +65,7 @@ export default function Layout({ children }) {
         <Box
           sx={{
             p: 3,
-            background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+            background: 'linear-gradient(135deg, #00A4B4 0%, #ec4899 100%)',
             color: 'white',
             position: 'relative',
             overflow: 'hidden',
@@ -263,7 +263,7 @@ export default function Layout({ children }) {
             width: '60vw',
             height: '60vw',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0) 70%)',
+            background: 'radial-gradient(circle, rgba(0,164,180,0.15) 0%, rgba(0,164,180,0) 70%)',
             filter: 'blur(60px)',
           }}
         />
@@ -327,7 +327,7 @@ export default function Layout({ children }) {
             component="div"
             sx={{
               fontWeight: 800,
-              background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
+              background: 'linear-gradient(135deg, #00A4B4 0%, #ec4899 100%)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',

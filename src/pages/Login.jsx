@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 import {
   Container,
   Box,
@@ -14,78 +14,81 @@ import {
   useTheme,
   alpha,
   Stack,
-} from '@mui/material'
+} from "@mui/material";
 import {
   Visibility,
   VisibilityOff,
   School as SchoolIcon,
-} from '@mui/icons-material'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import { motion, AnimatePresence } from 'framer-motion'
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
 
-const MotionCard = motion(Card)
-const MotionBox = motion(Box)
+const MotionCard = motion(Card);
+const MotionBox = motion(Box);
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
-  const { login } = useAuth()
-  const theme = useTheme()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const theme = useTheme();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
+      const response = await fetch(
+        "https://note-verse-backend.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed')
+        throw new Error(data.message || "Login failed");
       }
 
-      login(data.data.token, data.data.user)
-      navigate('/derslerim')
+      login(data.data.token, data.data.user);
+      navigate("/derslerim");
     } catch (err) {
-      setError(err.message || 'An error occurred during login')
+      setError(err.message || "An error occurred during login");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Box
       sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        position: 'relative',
-        overflow: 'hidden',
-        bgcolor: 'background.default',
+        minHeight: "100vh",
+        display: "flex",
+        position: "relative",
+        overflow: "hidden",
+        bgcolor: "background.default",
       }}
     >
       {/* Animated Background Elements */}
       <Box
         sx={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
           zIndex: 0,
-          overflow: 'hidden',
+          overflow: "hidden",
         }}
       >
         <motion.div
@@ -98,17 +101,18 @@ export default function Login() {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "linear"
+            ease: "linear",
           }}
           style={{
-            position: 'absolute',
-            top: '-10%',
-            left: '-10%',
-            width: '60vw',
-            height: '60vw',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(99,102,241,0.3) 0%, rgba(99,102,241,0) 70%)',
-            filter: 'blur(60px)',
+            position: "absolute",
+            top: "-10%",
+            left: "-10%",
+            width: "60vw",
+            height: "60vw",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(0,164,180,0.3) 0%, rgba(0,164,180,0) 70%)",
+            filter: "blur(60px)",
           }}
         />
         <motion.div
@@ -121,38 +125,56 @@ export default function Login() {
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "linear"
+            ease: "linear",
           }}
           style={{
-            position: 'absolute',
-            bottom: '-10%',
-            right: '-10%',
-            width: '50vw',
-            height: '50vw',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(236,72,153,0) 70%)',
-            filter: 'blur(60px)',
+            position: "absolute",
+            bottom: "-10%",
+            right: "-10%",
+            width: "50vw",
+            height: "50vw",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(236,72,153,0) 70%)",
+            filter: "blur(60px)",
           }}
         />
       </Box>
 
-      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center' }}>
+      <Container
+        maxWidth="sm"
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <MotionCard
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           sx={{
-            width: '100%',
-            backdropFilter: 'blur(20px)',
-            backgroundColor: theme.palette.mode === 'dark' ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.85)',
-            boxShadow: theme.palette.mode === 'dark' ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-            border: '1px solid',
-            borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.5)',
-            overflow: 'visible',
+            width: "100%",
+            backdropFilter: "blur(20px)",
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? "rgba(30, 41, 59, 0.7)"
+                : "rgba(255, 255, 255, 0.85)",
+            boxShadow:
+              theme.palette.mode === "dark"
+                ? "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+                : "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+            border: "1px solid",
+            borderColor:
+              theme.palette.mode === "dark"
+                ? "rgba(255, 255, 255, 0.1)"
+                : "rgba(255, 255, 255, 0.5)",
+            overflow: "visible",
           }}
         >
           <CardContent sx={{ p: { xs: 3, sm: 6 } }}>
-            <Box sx={{ textAlign: 'center', mb: 5 }}>
+            <Box sx={{ textAlign: "center", mb: 5 }}>
               <MotionBox
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -160,18 +182,19 @@ export default function Login() {
                 sx={{
                   width: 80,
                   height: 80,
-                  borderRadius: '24px',
-                  background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 20px',
-                  boxShadow: '0 20px 25px -5px rgba(99, 102, 241, 0.4)',
+                  borderRadius: "24px",
+                  background:
+                    "linear-gradient(135deg, #00A4B4 0%, #ec4899 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 20px",
+                  boxShadow: "0 20px 25px -5px rgba(0, 164, 180, 0.4)",
                 }}
               >
-                <SchoolIcon sx={{ fontSize: 40, color: 'white' }} />
+                <SchoolIcon sx={{ fontSize: 40, color: "white" }} />
               </MotionBox>
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -181,19 +204,24 @@ export default function Login() {
                   variant="h3"
                   fontWeight={800}
                   sx={{
-                    background: theme.palette.mode === 'dark' 
-                      ? 'linear-gradient(135deg, #fff 0%, #94a3b8 100%)' 
-                      : 'linear-gradient(135deg, #1e293b 0%, #475569 100%)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
+                    background:
+                      theme.palette.mode === "dark"
+                        ? "linear-gradient(135deg, #fff 0%, #94a3b8 100%)"
+                        : "linear-gradient(135deg, #1e293b 0%, #475569 100%)",
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
                     mb: 1,
-                    letterSpacing: '-0.02em',
+                    letterSpacing: "-0.02em",
                   }}
                 >
                   NoteVerse
                 </Typography>
-                <Typography variant="body1" color="text.secondary" fontWeight={500}>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  fontWeight={500}
+                >
                   Üniversite Yönetim Sistemi
                 </Typography>
               </motion.div>
@@ -203,15 +231,15 @@ export default function Login() {
               {error && (
                 <motion.div
                   initial={{ opacity: 0, height: 0, mb: 0 }}
-                  animate={{ opacity: 1, height: 'auto', mb: 24 }}
+                  animate={{ opacity: 1, height: "auto", mb: 24 }}
                   exit={{ opacity: 0, height: 0, mb: 0 }}
                 >
                   <Alert
                     severity="error"
                     sx={{
                       borderRadius: 3,
-                      border: '1px solid',
-                      borderColor: 'error.light',
+                      border: "1px solid",
+                      borderColor: "error.light",
                       bgcolor: alpha(theme.palette.error.main, 0.1),
                     }}
                   >
@@ -229,7 +257,11 @@ export default function Login() {
                   transition={{ delay: 0.4 }}
                 >
                   <Box>
-                    <Typography variant="body2" fontWeight={600} sx={{ mb: 1, color: 'text.primary' }}>
+                    <Typography
+                      variant="body2"
+                      fontWeight={600}
+                      sx={{ mb: 1, color: "text.primary" }}
+                    >
                       E-posta
                     </Typography>
                     <TextField
@@ -241,18 +273,28 @@ export default function Login() {
                       required
                       autoComplete="email"
                       sx={{
-                        '& .MuiOutlinedInput-root': {
-                          bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.5)',
-                          backdropFilter: 'blur(10px)',
-                          transition: 'all 0.2s',
-                          '&:hover': {
-                            bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)',
+                        "& .MuiOutlinedInput-root": {
+                          bgcolor:
+                            theme.palette.mode === "dark"
+                              ? "rgba(255, 255, 255, 0.05)"
+                              : "rgba(255, 255, 255, 0.5)",
+                          backdropFilter: "blur(10px)",
+                          transition: "all 0.2s",
+                          "&:hover": {
+                            bgcolor:
+                              theme.palette.mode === "dark"
+                                ? "rgba(255, 255, 255, 0.1)"
+                                : "rgba(255, 255, 255, 0.8)",
                           },
-                          '&.Mui-focused': {
-                            bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#fff',
-                            transform: 'translateY(-2px)',
-                            boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.2)',
-                          }
+                          "&.Mui-focused": {
+                            bgcolor:
+                              theme.palette.mode === "dark"
+                                ? "rgba(255, 255, 255, 0.1)"
+                                : "#fff",
+                            transform: "translateY(-2px)",
+                            boxShadow:
+                              "0 10px 20px -5px rgba(0, 164, 180, 0.2)",
+                          },
                         },
                       }}
                     />
@@ -265,30 +307,44 @@ export default function Login() {
                   transition={{ delay: 0.5 }}
                 >
                   <Box>
-                    <Typography variant="body2" fontWeight={600} sx={{ mb: 1, color: 'text.primary' }}>
+                    <Typography
+                      variant="body2"
+                      fontWeight={600}
+                      sx={{ mb: 1, color: "text.primary" }}
+                    >
                       Şifre
                     </Typography>
                     <TextField
                       fullWidth
                       placeholder="••••••••"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       autoComplete="current-password"
                       sx={{
-                        '& .MuiOutlinedInput-root': {
-                          bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.5)',
-                          backdropFilter: 'blur(10px)',
-                          transition: 'all 0.2s',
-                          '&:hover': {
-                            bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.8)',
+                        "& .MuiOutlinedInput-root": {
+                          bgcolor:
+                            theme.palette.mode === "dark"
+                              ? "rgba(255, 255, 255, 0.05)"
+                              : "rgba(255, 255, 255, 0.5)",
+                          backdropFilter: "blur(10px)",
+                          transition: "all 0.2s",
+                          "&:hover": {
+                            bgcolor:
+                              theme.palette.mode === "dark"
+                                ? "rgba(255, 255, 255, 0.1)"
+                                : "rgba(255, 255, 255, 0.8)",
                           },
-                          '&.Mui-focused': {
-                            bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#fff',
-                            transform: 'translateY(-2px)',
-                            boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.2)',
-                          }
+                          "&.Mui-focused": {
+                            bgcolor:
+                              theme.palette.mode === "dark"
+                                ? "rgba(255, 255, 255, 0.1)"
+                                : "#fff",
+                            transform: "translateY(-2px)",
+                            boxShadow:
+                              "0 10px 20px -5px rgba(0, 164, 180, 0.2)",
+                          },
                         },
                       }}
                       InputProps={{
@@ -297,9 +353,13 @@ export default function Login() {
                             <IconButton
                               onClick={() => setShowPassword(!showPassword)}
                               edge="end"
-                              sx={{ color: 'text.secondary' }}
+                              sx={{ color: "text.secondary" }}
                             >
-                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
                             </IconButton>
                           </InputAdornment>
                         ),
@@ -322,26 +382,30 @@ export default function Login() {
                     sx={{
                       py: 2,
                       mt: 2,
-                      background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                      fontSize: '1rem',
+                      background:
+                        "linear-gradient(135deg, #00A4B4 0%, #ec4899 100%)",
+                      fontSize: "1rem",
                       fontWeight: 700,
-                      borderRadius: '16px',
-                      boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.4)',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        background: 'linear-gradient(135deg, #4f46e5 0%, #db2777 100%)',
-                        boxShadow: '0 20px 30px -10px rgba(99, 102, 241, 0.5)',
-                        transform: 'translateY(-3px)',
+                      borderRadius: "16px",
+                      boxShadow: "0 10px 20px -5px rgba(0, 164, 180, 0.4)",
+                      transition: "all 0.3s",
+                      "&:hover": {
+                        background:
+                          "linear-gradient(135deg, #4f46e5 0%, #db2777 100%)",
+                        boxShadow: "0 20px 30px -10px rgba(0, 164, 180, 0.5)",
+                        transform: "translateY(-3px)",
                       },
                     }}
                   >
                     {loading ? (
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                        <CircularProgress size={20} sx={{ color: 'white' }} />
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 2 }}
+                      >
+                        <CircularProgress size={20} sx={{ color: "white" }} />
                         Giriş yapılıyor...
                       </Box>
                     ) : (
-                      'Giriş Yap'
+                      "Giriş Yap"
                     )}
                   </Button>
                 </motion.div>
@@ -357,29 +421,30 @@ export default function Login() {
                 sx={{
                   mt: 4,
                   pt: 3,
-                  borderTop: '1px solid',
-                  borderColor: 'divider',
-                  textAlign: 'center',
+                  borderTop: "1px solid",
+                  borderColor: "divider",
+                  textAlign: "center",
                 }}
               >
                 <Typography variant="body2" color="text.secondary">
-                  Hesabınız yok mu?{' '}
+                  Hesabınız yok mu?{" "}
                   <Typography
                     component="span"
                     sx={{
-                      cursor: 'pointer',
+                      cursor: "pointer",
                       fontWeight: 700,
-                      color: 'primary.main',
-                      background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      transition: 'opacity 0.2s',
-                      '&:hover': {
+                      color: "primary.main",
+                      background:
+                        "linear-gradient(135deg, #00A4B4 0%, #ec4899 100%)",
+                      backgroundClip: "text",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      transition: "opacity 0.2s",
+                      "&:hover": {
                         opacity: 0.8,
                       },
                     }}
-                    onClick={() => navigate('/register')}
+                    onClick={() => navigate("/register")}
                   >
                     Kayıt Ol
                   </Typography>
@@ -390,5 +455,5 @@ export default function Login() {
         </MotionCard>
       </Container>
     </Box>
-  )
+  );
 }

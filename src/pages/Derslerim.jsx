@@ -379,7 +379,7 @@ export default function Derslerim() {
                     bgcolor: "primary.main",
                     mr: 2,
                     borderRadius: 2,
-                    background: "linear-gradient(180deg, #6366f1 0%, #ec4899 100%)",
+                    background: "linear-gradient(180deg, #00A4B4 0%, #ec4899 100%)",
                   }}
                 />
                 <Box sx={{ flexGrow: 1 }}>

@@ -4,9 +4,9 @@ export const getTheme = (mode) => createTheme({
   palette: {
     mode,
     primary: {
-      main: '#6366f1',
-      light: '#818cf8',
-      dark: '#4f46e5',
+      main: '#00A4B4',
+      light: '#33B8C5',
+      dark: '#008A99',
       contrastText: '#ffffff',
     },
     secondary: {
@@ -213,11 +213,11 @@ export const getTheme = (mode) => createTheme({
             transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
             '&:hover': {
               '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: '#6366f1',
+                borderColor: '#00A4B4',
               },
             },
             '&.Mui-focused': {
-              boxShadow: '0 0 0 3px rgba(99, 102, 241, 0.1)',
+              boxShadow: '0 0 0 3px rgba(0, 164, 180, 0.1)',
             },
           },
         },
