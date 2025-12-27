@@ -89,7 +89,7 @@ export default function CourseChat({
     setCurrentAssistantMessage(assistantMsg);
 
     await sendMessage(
-      "/api/chat/course",
+      "/chat/course",
       {
         message: input,
         thread_id: threadId,
